@@ -4,15 +4,17 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql network
 
 TARGET = netlab1
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    sqlshell.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    sqlshell.h
 
 FORMS    += mainwindow.ui
