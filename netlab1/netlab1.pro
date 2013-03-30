@@ -4,17 +4,24 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql network
+QT += core gui sql network webkit
 
 TARGET = netlab1
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    sqlshell.cpp
+SOURCES += \
+    main.cpp \
+    gui/mainwindow.cpp \
+    http/htmlpagegetter.cpp \
+    processors/processor.cpp \
+    model/model.cpp
 
-HEADERS  += mainwindow.h \
-    sqlshell.h
+HEADERS += \
+    gui/mainwindow.h \
+    http/htmlpagegetter.h \
+    processors/processor.h \
+    model/model.h
 
-FORMS    += mainwindow.ui
+FORMS += \
+    mainwindow.ui
