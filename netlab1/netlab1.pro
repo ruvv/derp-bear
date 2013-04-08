@@ -15,13 +15,17 @@ SOURCES += \
     gui/mainwindow.cpp \
     http/htmlpagegetter.cpp \
     processors/processor.cpp \
-    model/model.cpp
+    model/model.cpp \
+    sql/sqlitecontroller.cpp \
+    sql/dbrecord.cpp
 
 HEADERS += \
     gui/mainwindow.h \
     http/htmlpagegetter.h \
     processors/processor.h \
-    model/model.h
+    model/model.h \
+    sql/sqlitecontroller.h \
+    sql/dbrecord.h
 
 FORMS += \
     mainwindow.ui
