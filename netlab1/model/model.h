@@ -2,26 +2,23 @@
 #define MODEL_H
 
 #include <QObject>
-#include <QString>
 #include <QDateTime>
 #include <QUrl>
 
 typedef enum Type {
-    Q1, Q3, Q4, Q8, Q9
+    TypeQ1, TypeQ3, TypeQ4, TypeQ8, TypeQ9
 } Type;
 
 class Model : public QObject {
     Q_OBJECT
 
 public:
-    Type type;
     QDateTime dateTime;
     QUrl url;
 
     explicit Model(QObject* parent = 0);
 
-    virtual QString serialize() = 0;
-    virtual void deserialize(const QString& str) = 0;
+    virtual Type getType() = 0;
 
 };
 

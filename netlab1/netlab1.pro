@@ -17,7 +17,8 @@ SOURCES += \
     processors/processor.cpp \
     model/model.cpp \
     sql/sqlitecontroller.cpp \
-    sql/dbrecord.cpp
+    sql/dbrecord.cpp \
+    model/serializer.cpp
 
 HEADERS += \
     gui/mainwindow.h \
@@ -25,7 +26,8 @@ HEADERS += \
     processors/processor.h \
     model/model.h \
     sql/sqlitecontroller.h \
-    sql/dbrecord.h
+    sql/dbrecord.h \
+    model/serializer.h
 
 FORMS += \
     mainwindow.ui
