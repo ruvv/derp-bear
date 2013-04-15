@@ -5,20 +5,23 @@
 #include <QDateTime>
 #include <QUrl>
 
-typedef enum Type {
-    TypeQ1, TypeQ3, TypeQ4, TypeQ8, TypeQ9
-} Type;
-
 class Model : public QObject {
     Q_OBJECT
 
 public:
-    QDateTime dateTime;
-    QUrl url;
+    enum Type {
+        TypeQ1, TypeQ3, TypeQ4, TypeQ8, TypeQ9
+    };
 
     explicit Model(QObject* parent = 0);
+    virtual Model::Type getType() = 0;
 
-    virtual Type getType() = 0;
+protected:
+    QDateTime dateTime;
+    QUrl url;
+    Model::Type type;
+
+private:
 
 };
 

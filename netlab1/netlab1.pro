@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += core gui sql network webkit
+QT += core gui sql network webkit widgets xml webkitwidgets
 
 TARGET = netlab1
 TEMPLATE = app
@@ -18,7 +18,10 @@ SOURCES += \
     model/model.cpp \
     sql/sqlitecontroller.cpp \
     sql/dbrecord.cpp \
-    model/serializer.cpp
+    model/innerlinks.cpp \
+    model/modellight.cpp \
+    model/modellinks.cpp \
+    processors/processorlinks.cpp
 
 HEADERS += \
     gui/mainwindow.h \
@@ -27,7 +30,10 @@ HEADERS += \
     model/model.h \
     sql/sqlitecontroller.h \
     sql/dbrecord.h \
-    model/serializer.h
+    model/innerlinks.h \
+    model/modellight.h \
+    model/modellinks.h \
+    processors/processorlinks.h
 
 FORMS += \
     mainwindow.ui
