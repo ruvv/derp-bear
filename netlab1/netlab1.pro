@@ -16,24 +16,22 @@ SOURCES += \
     http/htmlpagegetter.cpp \
     processors/processor.cpp \
     model/model.cpp \
-    sql/sqlitecontroller.cpp \
-    sql/dbrecord.cpp \
     model/innerlinks.cpp \
     model/modellight.cpp \
     model/modellinks.cpp \
-    processors/processorlinks.cpp
+    processors/processorlinks.cpp \
+    simpletaskrunner.cpp
 
 HEADERS += \
     gui/mainwindow.h \
     http/htmlpagegetter.h \
     processors/processor.h \
     model/model.h \
-    sql/sqlitecontroller.h \
-    sql/dbrecord.h \
     model/innerlinks.h \
     model/modellight.h \
     model/modellinks.h \
-    processors/processorlinks.h
+    processors/processorlinks.h \
+    simpletaskrunner.h
 
 FORMS += \
     mainwindow.ui

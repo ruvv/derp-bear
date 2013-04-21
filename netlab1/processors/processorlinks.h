@@ -1,15 +1,14 @@
 #ifndef PROCESSORLINKS_H
 #define PROCESSORLINKS_H
 #include "processors/processor.h"
-#include <QDomDocument>
-
+#include "model/modellinks.h"
 #define sptr std::tr1::shared_ptr
 
 class ProcessorLinks : public Processor {
     Q_OBJECT
 public:
     explicit ProcessorLinks(QObject *parent = 0);
-    sptr<Model> process(const QString& htmlString, QString url);
+    sptr<ModelLight> process(const QString& htmlString, QString url);
 signals:
     
 public slots:

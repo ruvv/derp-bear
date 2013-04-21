@@ -12,6 +12,8 @@ protected:
     int type;
 public:
     explicit ModelLight(QObject *parent = 0);
+    virtual QStringList toStringList() = 0;
+    virtual void fromStringList(QStringList) = 0;
 
 signals:
     

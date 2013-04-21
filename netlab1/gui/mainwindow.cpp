@@ -13,8 +13,8 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::htmlGetterFinished(const QString& result) {
-
+void MainWindow::htmlGetterFinished(/*const QString& result*/) {
+    //result;
 }
 
 void MainWindow::htmlGetterError() {

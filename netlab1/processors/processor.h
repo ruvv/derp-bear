@@ -5,6 +5,7 @@
 #include <QString>
 #include <tr1/memory>
 #include "../model/model.h"
+#include "../model/modellight.h"
 
 class Processor : public QObject {
     Q_OBJECT

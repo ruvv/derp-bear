@@ -6,7 +6,7 @@
 #include <QSqlQuery>
 #include <QStringList>
 
-#include <sql/dbrecord.h>
+//#include <sql/dbrecord.h>
 
 class SqliteController  : public QObject {
         Q_OBJECT

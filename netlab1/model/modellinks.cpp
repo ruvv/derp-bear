@@ -6,10 +6,10 @@ ModelLinks::ModelLinks(QObject *parent) : ModelLight(parent) {
 
 QString ModelLinks::dataToString() {
     QString result = QString("");
-    for(QVector<QPair<QString, QString> >::ConstIterator i = data.constBegin(); i == data.constEnd(); i++) {
-        result.append(i->first);
+    for(int i = 0; i < data.size(); i++) {
+        result.append(data.at(i).first);
         result.append("::");
-        result.append(i->second);
+        result.append(data.at(i).second);
         result.append("\t");
     }
     return result.trimmed();

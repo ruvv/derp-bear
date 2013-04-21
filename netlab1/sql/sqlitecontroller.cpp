@@ -41,10 +41,10 @@ QList<DBRecord>* SqliteController::processSelect(QString query) {
     } else {
         QSqlRecord record = q.record();
         while(q.next()) {
-            result->append(DBRecord(q.value(record.indexOf("type")).toString(),
-                                    q.value(record.indexOf("data")).toString(),
-                                    q.value(record.indexOf("url")).toString(),
-                                    q.value(record.indexOf("datetime")).toString()));
+//            result->append(DBRecord(q.value(record.indexOf("type")).toString(),
+//                                    q.value(record.indexOf("data")).toString(),
+//                                    q.value(record.indexOf("url")).toString(),
+//                                    q.value(record.indexOf("datetime")).toString()));
         }
         msgok(QString("Succesfully executed: ") + query + QString("."));
         return result;

@@ -1,6 +1,4 @@
 #include "processorlinks.h"
-#include "model/modellinks.h"
-#include <QDomNode>
 #include <QUrl>
 #include <QDebug>
 
@@ -8,31 +6,34 @@ ProcessorLinks::ProcessorLinks(QObject *parent) : Processor(parent) {
 
 }
 
-std::tr1::shared_ptr<Model> ProcessorLinks::process(const QString &htmlString, QString url) {
+QStringList getLinksDirty(QString str) {
+    QStringList list = str.split(QRegExp("</a>", Qt::CaseInsensitive));
+    for(int i = 0; i < list.size(); i++) {
+        list[i] = list[i].right( list[i].length() - list[i].indexOf(QRegExp("<a href=.+", Qt::CaseInsensitive)) ) + QString("</a>");
+    }
+    list = list.filter(QRegExp("^<a.*/a>$"));
+    return list;
+}
 
-    sptr<ModelLinks> result(new ModelLinks);
-    result->setType(1);
-    result->setDateTime(QDateTime::currentDateTime().toString());
-    result->setUrl(url);
-
-
-//    QDomDocument doc;
-//    if(!doc.setContent(htmlString, &err)) {
-//        qDebug() << "not parsed";
-//    }
-//    QDomNodeList links = doc.elementsByTagName("a");
-
-//    QString domain = QUrl(url).host();
-
-//    QString href, text;
-
-//    for(int i = 0; i < links.length(); i++) {
-//        href = links.at(i).toElement().attribute("href", "");
-//        if(QUrl(href).host() == domain) {
-//            text = links.at(i).toElement().text();
-//            result->addData(href, text);
-//        }
-//    }
-    //ModelLinks ml = *(result.get());
-    return std::tr1::dynamic_pointer_cast<Model>(result);
+std::tr1::shared_ptr<ModelLight> ProcessorLinks::process(const QString &htmlString, QString url) {
+    ModelLinks* model = new ModelLinks;
+    model->setType(1);
+    model->setUrl(url);
+    model->setDateTime(QDateTime::currentDateTime().toString());
+    QStringList links = getLinksDirty(htmlString);
+    QString href = "";
+    QString text = "";
+    QString quot = "";
+    for(int i = 0; i < links.size(); i++) {
+        text = links[i].mid(links[i].indexOf('>') + 1, ( links[i].lastIndexOf('<') - links[i].indexOf('>') - 1 ));
+        href = links[i].right( links[i].length() - links[i].indexOf("href=") - 5 );
+        quot = href.at(0);
+        href.remove(0, 1);
+        href.remove(QRegExp(quot + QString(".*$")));
+        if(QUrl(href).host().isEmpty() || QUrl(href).host() == QUrl(url).host()) {
+            model->addData(href, text);
+        }
+    }
+    sptr<ModelLight> result(model);
+    return result;
 }

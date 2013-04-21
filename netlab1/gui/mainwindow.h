@@ -16,7 +16,7 @@ public:
     ~MainWindow();
     
 public slots:
-    void htmlGetterFinished(const QString& result);
+    void htmlGetterFinished(/*const QString& result*/);
     void htmlGetterError();
 
 private:
