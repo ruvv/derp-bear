@@ -20,7 +20,9 @@ SOURCES += \
     model/modellight.cpp \
     model/modellinks.cpp \
     processors/processorlinks.cpp \
-    simpletaskrunner.cpp
+    simpletaskrunner.cpp \
+    model/modelprintscreen.cpp \
+    processors/processorprintscreen.cpp
 
 HEADERS += \
     gui/mainwindow.h \
@@ -31,7 +33,9 @@ HEADERS += \
     model/modellight.h \
     model/modellinks.h \
     processors/processorlinks.h \
-    simpletaskrunner.h
+    simpletaskrunner.h \
+    model/modelprintscreen.h \
+    processors/processorprintscreen.h
 
 FORMS += \
     mainwindow.ui
