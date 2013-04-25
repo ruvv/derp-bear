@@ -28,17 +28,22 @@ SOURCES += \
     processors/processorprintscreen.cpp \
     model/modelinputs.cpp \
     processors/processorinputs.cpp
+    model/modellists.cpp \
+    processors/processorlists.cpp
 
 HEADERS += \
     http/htmlpagegetter.h \
     processors/processor.h \
+    processors/processorlinks.h \
+    processors/processorprintscreen.h \
+    processors/processorlists.h \
     model/model.h \
     model/innerlinks.h \
     model/modellight.h \
     model/modellinks.h \
-    processors/processorlinks.h \
-    simpletaskrunner.h \
     model/modelprintscreen.h \
     processors/processorprintscreen.h \
     model/modelinputs.h \
     processors/processorinputs.h
+    model/modellists.h \
+    simpletaskrunner.h

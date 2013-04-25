@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
     qin >> var;
 
     SimpleTaskRunner str;
+
     str.runsync(url, var);
 
     qout << "Complete";
@@ -32,6 +33,7 @@ int main(int argc, char *argv[]) {
     endl(qout);
     qout << "ENTER to exit";
     endl(qout);
+
 
     qin.readLine();
     a.exit();
