@@ -1,21 +1,18 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2013-04-25T21:14:57
+# Project created by QtCreator 2013-03-24T13:16:58
 #
 #-------------------------------------------------
 
-QT       += core sql network webkit xml webkitwidgets gui widgets
-QT       -=
+QT += core gui sql network webkit widgets xml webkitwidgets
 
 TARGET = netlab1
-
-CONFIG   += console
-CONFIG   -= app_bundle
-
 TEMPLATE = app
+
 
 SOURCES += \
     main.cpp \
+    gui/mainwindow.cpp \
     http/htmlpagegetter.cpp \
     processors/processor.cpp \
     model/model.cpp \
@@ -25,23 +22,20 @@ SOURCES += \
     processors/processorlinks.cpp \
     simpletaskrunner.cpp \
     model/modelprintscreen.cpp \
-    processors/processorprintscreen.cpp \
-    model/modellists.cpp \
-    processors/processorlists.cpp
+    processors/processorprintscreen.cpp
 
 HEADERS += \
+    gui/mainwindow.h \
     http/htmlpagegetter.h \
     processors/processor.h \
-    processors/processorlinks.h \
-    processors/processorprintscreen.h \
-    processors/processorlists.h \
     model/model.h \
     model/innerlinks.h \
     model/modellight.h \
     model/modellinks.h \
+    processors/processorlinks.h \
+    simpletaskrunner.h \
     model/modelprintscreen.h \
-    model/modellists.h \
-    simpletaskrunner.h
+    processors/processorprintscreen.h
 
-
-
+FORMS += \
+    mainwindow.ui
