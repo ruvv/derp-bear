@@ -12,6 +12,7 @@ class SimpleTaskRunner : public QObject {
 public:
     explicit SimpleTaskRunner(QObject *parent = 0);
     void run(QString url, int type);
+    void runsync(QString url, int type);
 
 private:
     int idCounter;
@@ -19,6 +20,8 @@ private:
     int runInnerLinks(QString url, int id);
     int runLists(QString url, int id);
     int runImages(QString url, int id);
+    int runPrintScreen(QString url, int id);
+    int runInputs(QString url, int id);
     
 signals:
     
