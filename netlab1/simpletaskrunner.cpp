@@ -1,6 +1,7 @@
 #include "simpletaskrunner.h"
 #include "processors/processorlinks.h"
 #include "processors/processorprintscreen.h"
+#include "processors/processorinputs.h"
 #include "http/htmlpagegetter.h"
 #include <QSqlDatabase>
 #include <QSqlQuery>
@@ -78,6 +79,25 @@ int SimpleTaskRunner::runPrintScreen(QString url, int id) {
 }
 
 int SimpleTaskRunner::runInputs(QString url, int id) {
+    HtmlPageGetter hpg;
+    QString html = hpg.getsync(url);
+    ProcessorInputs pl;
+    sptr<ModelLight> model = pl.process(html, url);
+    QStringList list = model->toStringList();
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", QString("con") + QString::number(id));
+    db.setDatabaseName("netlab.sqlite");
+    if (!db.open()) {
+        qDebug() << "bad grab" << db.lastError().text();
+        return -1;
+    }
+    QSqlQuery q(db);
+
+    bool result = q.exec(QString("INSERT INTO base (type, url, datetime, data) VALUES (%1, '%2', '%3', '%4');")
+                         .arg(list.at(0)).arg(list.at(1)).arg(list.at(2)).arg(list.at(3)));
+    if(!result) {
+        qDebug() << "bad grab" << q.lastError().text();
+        return -1;
+    }
     return id;
 }
 

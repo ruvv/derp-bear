@@ -25,7 +25,9 @@ SOURCES += \
     processors/processorlinks.cpp \
     simpletaskrunner.cpp \
     model/modelprintscreen.cpp \
-    processors/processorprintscreen.cpp
+    processors/processorprintscreen.cpp \
+    model/modelinputs.cpp \
+    processors/processorinputs.cpp
 
 HEADERS += \
     http/htmlpagegetter.h \
@@ -37,4 +39,6 @@ HEADERS += \
     processors/processorlinks.h \
     simpletaskrunner.h \
     model/modelprintscreen.h \
-    processors/processorprintscreen.h
+    processors/processorprintscreen.h \
+    model/modelinputs.h \
+    processors/processorinputs.h

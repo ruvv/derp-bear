@@ -1,23 +1,24 @@
 #include "modelprintscreen.h"
-#include <QBuffer>
+#include <QFile>
 
 ModelPrintScreen::ModelPrintScreen(QObject *parent) : ModelLight(parent) {
 }
 
-QString ModelPrintScreen::dataToString() {
-    QByteArray ba;
-    QBuffer buffer(&ba);
-    buffer.open(QIODevice::WriteOnly);
-    data.save(&buffer, "PNG");
-    QByteArray arr = qCompress(buffer.buffer(), 5);
-    QString str = arr.toBase64();
-    return str;
+QString ModelPrintScreen::dataToString() { 
+    data.save(QString("img.png"), "PNG");
+    QFile file("img.png");
+    file.open(QIODevice::ReadOnly);
+    QByteArray arr = file.readAll();
+    file.close();
+    return QString(arr.toBase64());
 }
 
 void ModelPrintScreen::dataFromString(QString src) {
-    QByteArray ba = QByteArray::fromBase64(QByteArray().append(src));
-    QBuffer buffer(&ba);
-    data.load(&buffer, "PNG");
+    QFile file("img.png");
+    file.open(QIODevice::WriteOnly);
+    file.write(QByteArray::fromBase64(QByteArray().append(src)));
+    file.close();
+    data.load(QString("img.png"), "PNG");
 }
 
 QStringList ModelPrintScreen::toStringList() {
