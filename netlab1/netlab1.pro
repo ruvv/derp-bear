@@ -22,7 +22,9 @@ SOURCES += \
     processors/processorlinks.cpp \
     simpletaskrunner.cpp \
     model/modelprintscreen.cpp \
-    processors/processorprintscreen.cpp
+    processors/processorprintscreen.cpp \
+    model/modellists.cpp \
+    processors/processorlists.cpp
 
 HEADERS += \
     gui/mainwindow.h \
@@ -35,7 +37,9 @@ HEADERS += \
     processors/processorlinks.h \
     simpletaskrunner.h \
     model/modelprintscreen.h \
-    processors/processorprintscreen.h
+    processors/processorprintscreen.h \
+    model/modellists.h \
+    processors/processorlists.h
 
 FORMS += \
     mainwindow.ui

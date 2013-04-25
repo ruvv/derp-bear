@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 //    hpg.start("http://rubyonrails.org/", 1);
 
     SimpleTaskRunner str;
-    str.run("http://rubyonrails.org/", 1);
+    str.run("http://htmlbook.ru/html/ol", 3);
 
     return a.exec();
 }
