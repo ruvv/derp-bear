@@ -27,9 +27,11 @@ SOURCES += \
     model/modelprintscreen.cpp \
     processors/processorprintscreen.cpp \
     model/modelinputs.cpp \
-    processors/processorinputs.cpp
+    processors/processorinputs.cpp \
     model/modellists.cpp \
-    processors/processorlists.cpp
+    processors/processorlists.cpp \
+    model/modelimages.cpp \
+    processors/processorimages.cpp
 
 HEADERS += \
     http/htmlpagegetter.h \
@@ -44,6 +46,8 @@ HEADERS += \
     model/modelprintscreen.h \
     processors/processorprintscreen.h \
     model/modelinputs.h \
-    processors/processorinputs.h
+    processors/processorinputs.h \
     model/modellists.h \
-    simpletaskrunner.h
+    simpletaskrunner.h \
+    model/modelimages.h \
+    processors/processorimages.h

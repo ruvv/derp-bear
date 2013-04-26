@@ -16,17 +16,18 @@ int main(int argc, char *argv[]) {
     QString url;
     qint32 var;
 
-    qout << "Write url:";
-    endl(qout);
-    url = qin.readLine();
+//    qout << "Write url:";
+//    // http://saitostroitel.com.ua/html_study/html_study_06  for #3
+//    endl(qout);
+//    url = qin.readLine();
 
-    qout << "Write variant(1, 3, 4, 8, 9)";
-    endl(qout);
-    qin >> var;
+//    qout << "Write variant(1, 3, 4, 8, 9)";
+//    endl(qout);
+//    qin >> var;
 
     SimpleTaskRunner str;
-
-    str.runsync(url, var);
+    str.runsync("http://saitostroitel.com.ua/html_study/html_study_06", 4);
+//    str.runsync(url, var);
 
     qout << "Complete";
     endl(qout);
