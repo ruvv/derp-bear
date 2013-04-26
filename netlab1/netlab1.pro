@@ -18,8 +18,6 @@ SOURCES += \
     main.cpp \
     http/htmlpagegetter.cpp \
     processors/processor.cpp \
-    model/model.cpp \
-    model/innerlinks.cpp \
     model/modellight.cpp \
     model/modellinks.cpp \
     processors/processorlinks.cpp \
@@ -30,8 +28,8 @@ SOURCES += \
     processors/processorinputs.cpp \
     model/modellists.cpp \
     processors/processorlists.cpp \
-    model/modelimages.cpp \
-    processors/processorimages.cpp
+    processors/processorimages.cpp \
+    model/modelimages.cpp
 
 HEADERS += \
     http/htmlpagegetter.h \
@@ -39,8 +37,6 @@ HEADERS += \
     processors/processorlinks.h \
     processors/processorprintscreen.h \
     processors/processorlists.h \
-    model/model.h \
-    model/innerlinks.h \
     model/modellight.h \
     model/modellinks.h \
     model/modelprintscreen.h \
