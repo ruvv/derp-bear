@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QDateTime>
 
 class ModelLight : public QObject {
     Q_OBJECT
