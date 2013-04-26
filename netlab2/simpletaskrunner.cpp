@@ -171,6 +171,27 @@ void SimpleTaskRunner::runsync(QString url, int type) {
         break;
     }
 }
+
+int SimpleTaskRunner::addTask(QString url, int type) {
+
+}
+
+void SimpleTaskRunner::startTask(int id) {
+
+}
+
+void SimpleTaskRunner::stopTask(int id) {
+
+}
+
+void SimpleTaskRunner::startAll() {
+
+}
+
+void SimpleTaskRunner::stopAll() {
+
+}
+
 void SimpleTaskRunner::run(QString url, int type) {
     QFutureWatcher<int>* watcher = new QFutureWatcher<int>;
     QFuture<int> result;

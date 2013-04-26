@@ -14,6 +14,12 @@ public:
     void run(QString url, int type);
     void runsync(QString url, int type);
 
+    int addTask(QString url, int type);
+    void startTask(int id);
+    void stopTask(int id);
+    void startAll();
+    void stopAll();
+
 private:
     int idCounter;
 
@@ -24,6 +30,7 @@ private:
     int runInputs(QString url, int id);
     
 signals:
+    void taskFinished(int);
     
 public slots:
     void handleFinished();
