@@ -3,11 +3,12 @@
 #include "model/modellight.h"
 #include <QStringList>
 #include <QByteArray>
+#include <QVector>
 
 class ModelImages : public ModelLight {
     Q_OBJECT
 protected:
-    QByteArray data;
+    QVector<QByteArray> data;
     QString dataToString();
     void dataFromString(QString);
 public:
@@ -19,7 +20,7 @@ public:
     void setType(int x) {type = x;}
     void setDateTime(QString x) {datetime = x;}
     void setUrl(QString x) {url = x;}
-    void addData(QByteArray x) {data = x;}
+    void addData(QByteArray x) {data.append(x);}
 
 signals:
     

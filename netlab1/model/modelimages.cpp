@@ -5,11 +5,22 @@ ModelImages::ModelImages(QObject *parent) : ModelLight(parent) {
 }
 
 QString ModelImages::dataToString() {
-    return data;
+    QString result;
+    for(int i = 0; i < data.size(); i++) {
+        result.append(data.at(i));
+        result.append("\t\t\t\t\t");
+    }
+    result.chop(5);
+    return result;
 }
 
 void ModelImages::dataFromString(QString src) {
-    data = src.toLatin1();
+    data.clear();
+    QStringList tmp = src.split("\t\t\t\t\t");
+    for(int i = 0; i < tmp.size(); i++) {
+        data.append(tmp.at(i).toLatin1());
+    }
+
 }
 
 QStringList ModelImages::toStringList() {
