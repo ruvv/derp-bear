@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>620</width>
-    <height>432</height>
+    <height>431</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -253,6 +253,32 @@
     </property>
     <property name="text">
      <string>ID</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="startAllTasksButton">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>400</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Start all</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stopAllTasksButton">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>400</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Stop all</string>
     </property>
    </widget>
   </widget>

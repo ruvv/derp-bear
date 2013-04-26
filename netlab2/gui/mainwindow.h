@@ -3,6 +3,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "../http/htmlpagegetter.h"
+#include "../simpletaskrunner.h"
 
 namespace Ui {
     class MainWindow;
@@ -24,10 +25,15 @@ private slots:
 
     void on_newTaskAddButton_clicked();
 
+    void on_startAllTasksButton_clicked();
+
+    void on_stopAllTasksButton_clicked();
+
     void onTaskFinished(int taskID);
 
 private:
     Ui::MainWindow* ui;
+    SimpleTaskRunner taskRunner;
 
 };
 
