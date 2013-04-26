@@ -1,6 +1,7 @@
 #include "processorinputs.h"
 #include <QUrl>
 #include <QDebug>
+#include <QDateTime>
 
 ProcessorInputs::ProcessorInputs(QObject *parent) : Processor(parent) {
 
@@ -10,7 +11,7 @@ QStringList getInputsDirty(QString str) {
     QStringList list = str.split(QRegExp("<input", Qt::CaseInsensitive));
     list.pop_front();
     for(int i = 0; i < list.size(); i++) {
-        list[i] = QString("<input") + list[i].left(list[i].indexOf(QRegExp(">", Qt::CaseInsensitive) + 1));
+        list[i] = QString("<input") + list[i].left(list[i].indexOf(QRegExp(">", Qt::CaseInsensitive)) + 1);
     }
     return list;
 }
