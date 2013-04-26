@@ -10,7 +10,7 @@ QStringList getInputsDirty(QString str) {
     QStringList list = str.split(QRegExp("<input", Qt::CaseInsensitive));
     list.pop_front();
     for(int i = 0; i < list.size(); i++) {
-        list[i] = QString("<input") + list[i].right(list[i].length() - list[i].indexOf(QRegExp(">", Qt::CaseInsensitive)));
+        list[i] = QString("<input") + list[i].left(list[i].indexOf(QRegExp(">", Qt::CaseInsensitive) + 1));
     }
     return list;
 }

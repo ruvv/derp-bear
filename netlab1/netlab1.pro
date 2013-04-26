@@ -27,7 +27,7 @@ SOURCES += \
     model/modelprintscreen.cpp \
     processors/processorprintscreen.cpp \
     model/modelinputs.cpp \
-    processors/processorinputs.cpp
+    processors/processorinputs.cpp \
     model/modellists.cpp \
     processors/processorlists.cpp
 
@@ -44,6 +44,6 @@ HEADERS += \
     model/modelprintscreen.h \
     processors/processorprintscreen.h \
     model/modelinputs.h \
-    processors/processorinputs.h
+    processors/processorinputs.h \
     model/modellists.h \
     simpletaskrunner.h
