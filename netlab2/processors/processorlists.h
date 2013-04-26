@@ -2,7 +2,6 @@
 #define PROCESSORLISTS_H
 #include "processors/processor.h"
 #include "model/modellists.h"
-#define sptr std::tr1::shared_ptr
 
 class ProcessorLists : public Processor
 {

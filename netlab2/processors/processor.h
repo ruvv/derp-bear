@@ -13,7 +13,7 @@ class Processor : public QObject {
 public:
     explicit Processor(QObject* parent = 0);
 
-    //virtual std::tr1::shared_ptr<Model> process(const QString& htmlString) = 0;
+    virtual sptr<ModelLight> process(const QString& htmlString, QString url) = 0;
 
 };
 

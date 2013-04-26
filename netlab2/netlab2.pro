@@ -29,7 +29,8 @@ SOURCES += \
     model/modellists.cpp \
     processors/processorlists.cpp \
     model/modelimages.cpp \
-    processors/processorimages.cpp
+    processors/processorimages.cpp \
+    task.cpp
 
 HEADERS += \
     http/htmlpagegetter.h \
@@ -47,7 +48,8 @@ HEADERS += \
     model/modellists.h \
     simpletaskrunner.h \
     model/modelimages.h \
-    processors/processorimages.h
+    processors/processorimages.h \
+    task.h
 
 FORMS += \
     mainwindow.ui
