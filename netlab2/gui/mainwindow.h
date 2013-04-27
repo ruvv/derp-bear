@@ -17,13 +17,13 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_applyProxyButton_clicked();
+    void on_enableProxyButton_clicked();
 
-    void on_taskIDSpinBox_valueChanged();
-
-    void on_toggleTaskStateButton_clicked();
+    void on_disableProxyButton_clicked();
 
     void on_newTaskAddButton_clicked();
+
+    void on_tasksTableWidget_cellDoubleClicked(int row, int column);
 
     void on_startAllTasksButton_clicked();
 
