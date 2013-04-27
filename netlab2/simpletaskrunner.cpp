@@ -1,13 +1,17 @@
 #include "simpletaskrunner.h"
+
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QThread>
+#include "task.h"
+
 #include "processors/processorlinks.h"
 #include "processors/processorlists.h"
 #include "processors/processorprintscreen.h"
 #include "processors/processorinputs.h"
 #include "processors/processorimages.h"
 #include "http/htmlpagegetter.h"
-#include <QSqlDatabase>
-#include <QSqlQuery>
-#include <QSqlError>
 
 SimpleTaskRunner::SimpleTaskRunner(QObject *parent) : QObject(parent) {
     idCounter = 0;
@@ -23,6 +27,7 @@ SimpleTaskRunner::SimpleTaskRunner(QObject *parent) : QObject(parent) {
         qDebug() << "bad grab" << q.lastError().text();
     }
 }
+
 
 int SimpleTaskRunner::runInnerLinks(QString url, int id) {
     HtmlPageGetter hpg;
@@ -70,6 +75,7 @@ int SimpleTaskRunner::runLists(QString url, int id) {
     return id;
 }
 
+
 int SimpleTaskRunner::runImages(QString url, int id) {
     HtmlPageGetter hpg;
     QString html = hpg.getsync(url);
@@ -91,6 +97,7 @@ int SimpleTaskRunner::runImages(QString url, int id) {
     }
     return id;
 }
+
 
 int SimpleTaskRunner::runPrintScreen(QString url, int id) {
     HtmlPageGetter hpg;
@@ -115,6 +122,7 @@ int SimpleTaskRunner::runPrintScreen(QString url, int id) {
     return id;
 }
 
+
 int SimpleTaskRunner::runInputs(QString url, int id) {
     HtmlPageGetter hpg;
     QString html = hpg.getsync(url);
@@ -138,12 +146,7 @@ int SimpleTaskRunner::runInputs(QString url, int id) {
     return id;
 }
 
-void SimpleTaskRunner::handleFinished() {
-    QFutureWatcher<int>* watcher = static_cast<QFutureWatcher<int>*>(static_cast<void*>(QObject::sender()));
-    int id = watcher->future().result();
-    // сказать что этот id выполнен
-    watcher->deleteLater();
-}
+
 
 int SimpleTaskRunner::proceedLinks(QString html, QString url, int id) {
     ProcessorLinks pl;
@@ -151,6 +154,17 @@ int SimpleTaskRunner::proceedLinks(QString html, QString url, int id) {
     model->toStringList();
     return id;
 }
+
+void SimpleTaskRunner::errorString(QString err) {
+    emit errmsg(err);
+}
+
+void SimpleTaskRunner::handleFinished() {
+    int finishedId = tasktable.key(qobject_cast<QThread*>(QObject::sender()));
+    emit taskFinished(finishedId);
+    tasktable.remove(finishedId);
+}
+
 
 void SimpleTaskRunner::runsync(QString url, int type) {
     switch (type) {
@@ -173,49 +187,64 @@ void SimpleTaskRunner::runsync(QString url, int type) {
 }
 
 int SimpleTaskRunner::addTask(QString url, int type) {
-
+    Task* task = new Task;
+    task->setId(idCounter);
+    task->setType(type);
+    task->setUrl(url);
+    QThread* thread = new QThread;
+    tasktable.insert(idCounter, thread);
+    task->moveToThread(thread);
+    connect(task, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
+    connect(thread, SIGNAL(started()), task, SLOT(process()));
+    connect(task, SIGNAL(finished(int)), thread, SLOT(quit()));
+    connect(task, SIGNAL(finished(int)), task, SLOT(deleteLater()));
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+    connect(thread, SIGNAL(finished()), this, SLOT(handleFinished()));
+    return (idCounter++);
 }
 
 void SimpleTaskRunner::startTask(int id) {
-
+    tasktable.value(id)->start();
 }
 
 void SimpleTaskRunner::stopTask(int id) {
-
+    tasktable.value(id)->quit();
 }
 
 void SimpleTaskRunner::startAll() {
-
+    //stub
 }
 
 void SimpleTaskRunner::stopAll() {
-
+    //stub
 }
 
+
+// deprecated
 void SimpleTaskRunner::run(QString url, int type) {
-    QFutureWatcher<int>* watcher = new QFutureWatcher<int>;
-    QFuture<int> result;
-    switch (type) {
-    case 1:
+//    QFutureWatcher<int>* watcher = new QFutureWatcher<int>;
+//    QFuture<int> result;
+//    switch (type) {
+//    case 1:
 
-        connect(watcher, SIGNAL(finished()), this, SLOT(handleFinished()));
-        result = QtConcurrent::run(this, &SimpleTaskRunner::runInnerLinks, url, idCounter++);
-        // сказать что запущено с таким id (типа тройка: урл тип айди)
-        watcher->setFuture(result);
-        break;
-    case 3:
+//        connect(watcher, SIGNAL(finished()), this, SLOT(handleFinished()));
+//        result = QtConcurrent::run(this, &SimpleTaskRunner::runInnerLinks, url, idCounter++);
+//        // сказать что запущено с таким id (типа тройка: урл тип айди)
+//        watcher->setFuture(result);
+//        break;
+//    case 3:
 
-        connect(watcher, SIGNAL(finished()), this, SLOT(handleFinished()));
-        result = QtConcurrent::run(this, &SimpleTaskRunner::runLists, url, idCounter++);
-        // сказать что запущено с таким id
-        watcher->setFuture(result);
-        break;
-    case 4:
+//        connect(watcher, SIGNAL(finished()), this, SLOT(handleFinished()));
+//        result = QtConcurrent::run(this, &SimpleTaskRunner::runLists, url, idCounter++);
+//        // сказать что запущено с таким id
+//        watcher->setFuture(result);
+//        break;
+//    case 4:
 
-        connect(watcher, SIGNAL(finished()), this, SLOT(handleFinished()));
-        result = QtConcurrent::run(this, &SimpleTaskRunner::runImages, url, idCounter++);
-        // сказать что запущено с таким id
-        watcher->setFuture(result);
-        break;
-    }
+//        connect(watcher, SIGNAL(finished()), this, SLOT(handleFinished()));
+//        result = QtConcurrent::run(this, &SimpleTaskRunner::runImages, url, idCounter++);
+//        // сказать что запущено с таким id
+//        watcher->setFuture(result);
+//        break;
+//    }
 }

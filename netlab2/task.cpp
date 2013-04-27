@@ -1,14 +1,15 @@
 #include "task.h"
 #include "http/htmlpagegetter.h"
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QDebug>
 
 Task::Task(QObject *parent) : QObject(parent) {
     id = 0;
 }
 
 Task::~Task() {
-    if(model != 0) {
-        delete model;
-    }
     if(processor != 0) {
         delete processor;
     }
@@ -38,10 +39,26 @@ void Task::setType(int nType) {
 }
 
 
-void Task::process(QString url) {
-    emit started();
+void Task::process() {
+    emit started(id);
     HtmlPageGetter hpg;
     QString html = hpg.getsync(url);
-    model = processor->process(html, url).get();
-    emit finished();
+    sptr<ModelLight> model(processor->process(html, url));
+    QStringList list = model->toStringList();
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", QString("con") + QString::number(id));
+    db.setDatabaseName("netlab.sqlite");
+    if (!db.open()) {
+        qDebug() << "bad grab" << db.lastError().text();
+        emit error(QString("Err: sqlite is not open."));
+        return;
+    }
+    QSqlQuery q(db);
+
+    bool result = q.exec(QString("INSERT INTO base (type, url, datetime, data) VALUES (%1, '%2', '%3', '%4');")
+                         .arg(list.at(0)).arg(list.at(1)).arg(list.at(2)).arg(list.at(3)));
+    if(!result) {
+        qDebug() << "bad grab" << q.lastError().text();
+        emit error(QString("Err: query failed."));
+    }
+    emit finished(id);
 }

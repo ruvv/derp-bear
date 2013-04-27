@@ -6,6 +6,7 @@
 #include <QtConcurrent/QtConcurrentRun>
 #include <QFuture>
 #include <QFutureWatcher>
+#include <QMap>
 
 class SimpleTaskRunner : public QObject {
     Q_OBJECT
@@ -22,6 +23,7 @@ public:
 
 private:
     int idCounter;
+    QMap<int, QThread*> tasktable;
 
     int runInnerLinks(QString url, int id);
     int runLists(QString url, int id);
@@ -31,10 +33,12 @@ private:
     
 signals:
     void taskFinished(int);
+    void errmsg(QString);
     
 public slots:
     void handleFinished();
     int proceedLinks(QString html, QString url, int id);
+    void errorString(QString);
 };
 
 #endif // SIMPLETASKRUNNER_H

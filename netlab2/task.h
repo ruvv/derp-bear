@@ -38,11 +38,11 @@ public:
     int getId() { return id; }
     
 signals:
-    void started();
-    void finished();
+    void started(int);
+    void finished(int);
     void error(QString);
 public slots:
-    void process(QString url);
+    void process();
 };
 
 #endif // TASK_H
