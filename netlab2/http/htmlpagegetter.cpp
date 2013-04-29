@@ -43,6 +43,21 @@ QString HtmlPageGetter::getsync(QString url) {
     return bytes;
 }
 
+QByteArray HtmlPageGetter::getsyncraw(QString url) {
+    QNetworkAccessManager* nam = new QNetworkAccessManager(this);
+    QNetworkReply* reply = nam->get(QNetworkRequest(QUrl(url)));
+    QEventLoop loop;
+    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    loop.exec();
+    QByteArray bytes;
+    if (reply->error() == QNetworkReply::NoError) {
+        bytes = reply->readAll();
+    } else {
+        bytes = "";
+    }
+    return bytes;
+}
+
 void HtmlPageGetter::finished(QNetworkReply* reply) {
     // Reading attributes of the reply
     // e.g. the HTTP status code

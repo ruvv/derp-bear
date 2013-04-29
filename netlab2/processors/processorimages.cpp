@@ -16,7 +16,7 @@ QStringList getImagesDirty(QString str) {
 
     list = str.split(QRegExp("<img"));
     for(int i = 0; i < list.length(); i++) {
-        list[i] = list[i].right( list[i].length() - list[i].indexOf(QRegExp("src=\"")) - 5 );
+        list[i] = list[i].right( list[i].length() - list[i].lastIndexOf(QRegExp("src=\"")) - 5 );
         list[i].chop(list[i].length() - list[i].indexOf(QRegExp("\"")));
         if(list[i].endsWith(".js")) {
             list[i].clear();
@@ -33,13 +33,13 @@ std::tr1::shared_ptr<ModelLight> ProcessorImages::process(const QString &htmlStr
     QStringList images = getImagesDirty(htmlString);
     for(int i = 0; i < images.size(); i++) {
         if(QUrl(images[i]).isRelative()) {
-            images[i] = QUrl(url).host() + QString("/") + images[i];
+            images[i] = QUrl(url).resolved(QUrl(images[i])).toString();
         }
     }
     //  todo: скачать картинки и сунуть их в модель
-    QNetworkAccessManager* nam = new QNetworkAccessManager();
-    QNetworkReply* reply;
-    QEventLoop loop;
+//    QNetworkAccessManager* nam = new QNetworkAccessManager();
+//    QNetworkReply* reply;
+//    QEventLoop loop;
 
     QByteArray bytes;
     QFile savefile;
@@ -58,7 +58,7 @@ std::tr1::shared_ptr<ModelLight> ProcessorImages::process(const QString &htmlStr
 //        savefile.open(QIODevice::WriteOnly);
 //        savefile.write(bytes);
 //        savefile.close();
-        bytes = hpg.getsync(images.at(i)).toLatin1();
+        bytes = hpg.getsyncraw(images.at(i));
         model->addData(bytes);
         savefile.setFileName(QString("image") + QString::number(i) + QString(".") + images.at(i).right(3));
         savefile.open(QIODevice::WriteOnly);

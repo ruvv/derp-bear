@@ -5,6 +5,7 @@
 #include <QString>
 #include <QUrl>
 #include <QNetworkReply>
+#include <QByteArray>
 
 class HtmlPageGetter : public QObject {
     Q_OBJECT
@@ -17,6 +18,7 @@ public:
     void start(QUrl url);
     void start(QString url, int id);
     QString getsync(QString url);
+    QByteArray getsyncraw(QString url);
 
 signals:
     //void finished(const QString& htmlString);

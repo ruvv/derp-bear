@@ -3,6 +3,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QSqlDriver>
 #include <QDebug>
 
 Task::Task(QObject *parent) : QObject(parent) {
@@ -53,9 +54,14 @@ void Task::process() {
         return;
     }
     QSqlQuery q(db);
-
-    bool result = q.exec(QString("INSERT INTO base (type, url, datetime, data) VALUES (%1, '%2', '%3', '%4');")
-                         .arg(list.at(0)).arg(list.at(1)).arg(list.at(2)).arg(list.at(3)));
+    q.prepare(QString("INSERT INTO base (type, url, datetime, data) VALUES (:type, :url, :datetime, :data);"));
+    q.bindValue(":type", list.at(0));
+    q.bindValue(":url", list.at(1));
+    q.bindValue(":datetime", list.at(2));
+    q.bindValue(":data", list.at(3));
+    bool result = q.exec();
+//    bool result = q.exec(QString("INSERT INTO base (type, url, datetime, data) VALUES (%1, '%2', '%3', '%4');")
+//                         .arg(list.at(0)).arg(list.at(1)).arg(list.at(2)).arg(list.at(3)));
     if(!result) {
         qDebug() << "bad grab" << q.lastError().text();
         emit error(QString("Err: query failed."));

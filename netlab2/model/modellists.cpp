@@ -1,4 +1,5 @@
 #include "modellists.h"
+#include <QDebug>
 
 ModelLists::ModelLists(QObject *parent) : ModelLight(parent) {
 
@@ -27,7 +28,9 @@ QString ModelLists::dataToString() {
         for(int j = 0; j < data[i].size(); j++) {
             result.append(data[i][j]);
             result.append("::");
+            qDebug() << result;
         }
+        result.chop(2);
         result.append("\t");
     }
     return result.trimmed();
@@ -35,8 +38,13 @@ QString ModelLists::dataToString() {
 
 QVector<QString> splitToVector(QString src, QString delimiter) {
     QStringList t = src.split(delimiter);
+    if(!t.isEmpty()) {
+        if(t.last().isEmpty()) {
+            t.removeLast();
+        }
+    }
+
     return t.toVector();
-    // может появиться лишний пустой элемент в конце
 }
 
 void ModelLists::dataFromString(QString src) {
