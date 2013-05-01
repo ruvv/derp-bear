@@ -177,6 +177,7 @@ void SimpleTaskRunner::runsync(QString url, int type) {
     case 4:
         runImages(url, idCounter++);
         break;
+
     case 8:
         runPrintScreen(url, idCounter++);
         break;

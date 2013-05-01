@@ -39,11 +39,16 @@ void MainWindow::on_disableProxyButton_clicked() {
 }
 
 void MainWindow::on_newTaskAddButton_clicked() {
-    ui->tasksTableWidget->setRowCount(ui->tasksTableWidget->rowCount() + 1);
-
     QString url = ui->newTaskUrlLineEdit->text();
     int type = ui->newTaskTypeComboBox->currentText().toInt();
+
+    if(type == 8) {
+        taskRunner.runsync(url, 8);
+        return;
+    }
     int taskID = taskRunner.addTask(url, type);
+
+    ui->tasksTableWidget->setRowCount(ui->tasksTableWidget->rowCount() + 1);
 
     QTableWidgetItem* idItem = new QTableWidgetItem();
     idItem->setText(QString::number(taskID));

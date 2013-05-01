@@ -8,7 +8,7 @@
 ProcessorPrintScreen::ProcessorPrintScreen(QObject *parent) : Processor(parent) {
 }
 
-sptr<ModelLight> ProcessorPrintScreen::process(const QString &htmlString, QString url) {
+sptr<ModelLight> ProcessorPrintScreen::process(const QString& htmlString, QString url) {
     QWebPage page;
     page.mainFrame()->setHtml(htmlString);
     QEventLoop loop;
@@ -16,7 +16,7 @@ sptr<ModelLight> ProcessorPrintScreen::process(const QString &htmlString, QStrin
     loop.exec();
     page.setViewportSize(page.mainFrame()->contentsSize());
 
-    QImage image(page.viewportSize(), QImage::Format_ARGB32);
+    QImage image(QSize(1000, 1000), QImage::Format_ARGB32);
     QPainter painter(&image);
 
     page.mainFrame()->render(&painter);
