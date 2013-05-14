@@ -6,15 +6,23 @@
 
 QT += core gui sql network webkit widgets xml webkitwidgets
 
-TARGET = netlab2
-TEMPLATE = app
+#TARGET = netlab3
+#TEMPLATE = app
 
+#TEMPLATE = app
 
+TARGET = netlab3
+CONFIG   += console
+CONFIG   -= app_bundle
 
 TEMPLATE = app
 
 SOURCES += \
     main.cpp \
+    ftp/ftpserver.cpp \
+    ftp/ftpport.cpp \
+    ftp/ftpfilesocket.cpp \
+    ftp/ftplistitem.cpp \
     gui/mainwindow.cpp \
     http/htmlpagegetter.cpp \
     processors/processor.cpp \
@@ -33,6 +41,10 @@ SOURCES += \
     task.cpp
 
 HEADERS += \
+    ftp/ftpserver.h \
+    ftp/ftpport.h \
+    ftp/ftpfilesocket.h \
+    ftp/ftplistitem.h \
     http/htmlpagegetter.h \
     gui/mainwindow.h \
     processors/processor.h \

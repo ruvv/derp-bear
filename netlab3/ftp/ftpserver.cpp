@@ -12,7 +12,7 @@ FtpServer::FtpServer(QObject *parent) : QObject(parent) {
     mUsername = "user";
     mPassword = QCryptographicHash::hash(QString("user").toLatin1(),QCryptographicHash::Sha1);
     mAccount = "";
-    mRootPath = "C:/t2/";
+    mRootPath = QDir::currentPath();
     mCurrentPath = mRootPath;
     mIPAddress = "127.0.0.1";
     mPassive = false;

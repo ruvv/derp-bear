@@ -220,3 +220,11 @@ void SimpleTaskRunner::stopAll() {
     //stub
 }
 
+void SimpleTaskRunner::onUploadTaskFileFinished(const QString &taskString) {
+    QStringList qsl = taskString.split(" ", QString::SkipEmptyParts);
+    int type = qsl.at(0).toInt();
+    QString url = qsl.at(1);
+
+    int id = addTask(url, type);
+    startTask(id);
+}
