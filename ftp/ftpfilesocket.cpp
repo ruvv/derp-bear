@@ -212,7 +212,7 @@ void FTPFileSocket::SendResponse(const char* data) {
 }
 
 void FTPFileSocket::CloseSocket() {
-    mSocket->waitForDisconnected();
+    //mSocket->waitForDisconnected();
     mSocket->close();
 }
 

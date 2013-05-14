@@ -95,8 +95,8 @@ void FTPListItem::GetDate(QFileInfo &FileInfo, QString &Line) {
     //padded by 12 and left justified
     QString ModDate = FileInfo.lastModified().toString("MMM dd hh:mm");
     // bugged
-    Line.append(ModDate.rightJustified(12,' ',true));
-    //Line.append(QString("").leftJustified(12,' ',true));
+    //Line.append(ModDate.rightJustified(12,' ',true));
+    Line.append(QString("").leftJustified(12,' ',true));
     Line.append(" ");
 }
 
