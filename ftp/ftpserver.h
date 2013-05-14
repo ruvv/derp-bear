@@ -53,6 +53,8 @@ private:
 
     QString buffer;
 
+    QString uploadedFileName;
+
     int mAuthenticated;
     bool mAnonymous;
     QString mUsername;
@@ -115,6 +117,7 @@ signals:
     void msg(QString);
     void started();
     void stopped();
+    void uploadTaskFileFinished(const QString& taskString);
 private slots:
     void onMsg(QString);
 public slots:

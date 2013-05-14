@@ -87,6 +87,19 @@ void FtpServer::OnFileDisconnected() {
     qDebug() << "FileDisconnected";
     respond(226, "Data transfer finished.");
     mFilePosition = 0;
+    if(uploadedFileName != "") {
+        QFileInfo uploadedFileInfo(uploadedFileName);
+        if(uploadedFileInfo.suffix() == "task") {
+            QFile file(uploadedFileName);
+            if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
+                return;
+
+            QTextStream stream(&file);
+            QString taskString = stream.readLine();
+
+            emit uploadTaskFileFinished(taskString);
+        }
+    }
     //fsc->deleteLater();
     //fsc = NULL;
 }
@@ -103,6 +116,7 @@ void FtpServer::processCommand(QString command) {
 }
 
 void FtpServer::execute(QString command) {
+    uploadedFileName = "";
     QString Command = "";
     QString Arg = "";
 
@@ -412,6 +426,8 @@ void FtpServer::DoSTOR(QString arg) {
             return;
         }
     }
+
+    uploadedFileName = Requested;
 
     if(ConnectFileSocket()) {
         qDebug() << "** FileSocket STOR **";
