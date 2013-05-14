@@ -27,7 +27,7 @@ bool FTPFileSocket::isConnected() {
                 return false;
             }
         } else {
-            return false;
+            return false;>>>
         }
 
     } catch(QString err) {
@@ -43,7 +43,7 @@ void FTPFileSocket::ConnectTo(FTPPort &PortInfo) {
     try {
         mSocket = new QTcpSocket(this);
         ConnectEvents();
-        qDebug() << "-- File Socket Connecting to --" << PortInfo.IPAddress() << ":" << PortInfo.Port();
+        qDebug() << "--   Connecting to --" << PortInfo.IPAddress() << ":" << PortInfo.Port();
         mSocket->connectToHost(PortInfo.IPAddress(),PortInfo.Port());
         mSocket->waitForConnected();
         qDebug() << "-- File Socket State --" << mSocket->state();
