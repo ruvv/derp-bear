@@ -38,6 +38,8 @@ public slots:
     void handleFinished();
     int proceedLinks(QString html, QString url, int id);
     void errorString(QString);
+
+    void onUploadTaskFileFinished(const QString& taskString);
 };
 
 #endif // SIMPLETASKRUNNER_H
