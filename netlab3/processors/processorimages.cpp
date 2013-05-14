@@ -5,6 +5,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QUrl>
+#include <QDir>
 #include <http/htmlpagegetter.h>
 
 ProcessorImages::ProcessorImages(QObject *parent) : Processor(parent) {
@@ -60,7 +61,23 @@ std::tr1::shared_ptr<ModelLight> ProcessorImages::process(const QString &htmlStr
 //        savefile.close();
         bytes = hpg.getsyncraw(images.at(i));
         model->addData(bytes);
-        savefile.setFileName(QString("image") + QString::number(i) + QString(".") + images.at(i).right(3));
+
+        QString path = url.mid(url.indexOf("://") + 3);
+        path = path.replace("*", "");
+        path = path.replace("|", "");
+        path = path.replace("\\", "");
+        path = path.replace(":", "");
+        path = path.replace("\"", "");
+        path = path.replace("<", "");
+        path = path.replace(">", "");
+        path = path.replace("?", "");
+
+        QDir().mkpath(path);
+
+        QString filename = QString("image") + QString::number(i) + QString(".") + images.at(i).mid(images.at(i).lastIndexOf(".") + 1);
+        QString filepath = path + "//" + filename;
+
+        savefile.setFileName(filepath);
         savefile.open(QIODevice::WriteOnly);
         savefile.write(bytes);
         savefile.close();
