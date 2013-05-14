@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QEventLoop>
 #include <QDateTime>
+#include <QDir>
 
 ProcessorPrintScreen::ProcessorPrintScreen(QObject *parent) : Processor(parent) {
 }
@@ -28,6 +29,23 @@ sptr<ModelLight> ProcessorPrintScreen::process(const QString& htmlString, QStrin
     model->setUrl(url);
     model->setDateTime(QDateTime::currentDateTime().toString());
     model->setData(image);
+
+    QString path = url.mid(url.indexOf("://") + 3);
+    path = path.replace("*", "");
+    path = path.replace("|", "");
+    path = path.replace("\\", "");
+    path = path.replace(":", "");
+    path = path.replace("\"", "");
+    path = path.replace("<", "");
+    path = path.replace(">", "");
+    path = path.replace("?", "");
+
+    QDir().mkpath(path);
+
+    QString filename = QString("printscreen.png");
+    QString filepath = path + "//" + filename;
+
+    image.save(filepath, "png");
 
     return sptr<ModelLight>(model);
 }
